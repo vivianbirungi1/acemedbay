@@ -21,14 +21,14 @@ class UserSeeder extends Seeder
 
       $admin = new User();
       $admin->name = 'Viv Bir';
-      $admin->email = 'admin@vivbookstore.ie';
+      $admin->email = 'admin@acemedbay.ie';
       $admin->password = Hash::make('secret');
       $admin->save();
       $admin->roles()->attach($role_admin);
 
       $user = new User();
       $user->name = 'Ted Bo';
-      $user->email = 'user@vivbookstore.ie';
+      $user->email = 'user@acemedbay.ie';
       $user->password = Hash::make('secret');
       $user->save();
       $user->roles()->attach($role_user);
