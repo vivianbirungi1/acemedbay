@@ -25,13 +25,19 @@ class HomeController extends Controller
     public function index()
     {
       $user = Auth::user();
-    $home = 'home';
+      $home = 'home';
 
     if($user->hasRole('admin')){
       $home = 'admin.home';
     }
     else if($user->hasRole('user')){
       $home = 'user.home';
+    }
+    else if($user->hasRole('doctor')){
+      $home = 'doctor.home';
+    }
+    else if($user->hasRole('patient')){
+      $home = 'patient.home';
     }
       return redirect()->route($home);
     }

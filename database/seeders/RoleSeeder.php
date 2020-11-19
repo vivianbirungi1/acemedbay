@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
       //creating 2 roles, want to seed db with roles and users
       $role_admin = new Role(); //Role now stored in role admin , need to set name and description
       $role_admin->name = 'admin';
-      $role_admin->description = 'An administrator user';
+      $role_admin->description = 'An administrator';
       $role_admin->save(); //stores admin role
 
 
@@ -25,5 +25,15 @@ class RoleSeeder extends Seeder
       $role_user->name = 'user';
       $role_user->description = 'An oridnary user';
       $role_user->save();
+
+      $role_doctor = new Role();
+      $role_doctor->name = 'doctor';
+      $role_doctor->description = 'An oridnary doctor';
+      $role_doctor->save();
+
+      $role_patient = new Role();
+      $role_patient->name = 'patient';
+      $role_patient->description = 'An oridnary patient';
+      $role_patient->save();
     }
 }
