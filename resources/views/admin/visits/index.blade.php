@@ -22,6 +22,7 @@
                           <th>Date</th>
                           <th>Start Time</th>
                           <th>End Time</th>
+                          <th>Duration</th>
                           <th>Cost</th>
                           <th>Doctor ID</th>
                           <th>Patient ID</th>
@@ -33,6 +34,7 @@
                               <td>{{ $visit->date }}</td>
                               <td>{{ $visit->start_time }}</td>
                               <td>{{ $visit->end_time }}</td>
+                              <td>{{ $visit->duration }}</td>
                               <td>{{ $visit->cost }}</td>
                               <td>{{ $visit->doctor_id }}</td>
                               <td>{{ $visit->patient_id }}</td>

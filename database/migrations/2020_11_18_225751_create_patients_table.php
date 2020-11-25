@@ -16,7 +16,7 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->integer('policy_number');
-            $table->string('medical_company');
+            $table->string('insurance_company');
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
 

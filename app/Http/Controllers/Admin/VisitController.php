@@ -53,8 +53,9 @@ public function __construct()
     {
       $request ->validate([
         'date' => 'required|date',
-        'start_time' => 'required|time',
-        'end_time' => 'required|time',
+        'start_time' => 'required|date_format:H:i',
+        'end_time' => 'required|date_format:H:i',
+        'duration' => 'required|numeric|min:0',
         'cost' => 'required|numeric|min:0',
         'doctor_id' => 'required|exists:doctors,id',
         'patient_id' => 'required|exists:patients,id'
@@ -65,6 +66,7 @@ public function __construct()
       $visit->date = $request->input('date');
       $visit->start_time = $request->input('start_time');
       $visit->end_time = $request->input('end_time');
+      $visit->duration = $request->input('duration');
       $visit->cost = $request->input('cost');
       $visit->doctor_id = $request->input('doctor_id');
       $visit->patient_id = $request->input('patient_id');
@@ -114,8 +116,9 @@ public function __construct()
     {
       $request ->validate([
         'date' => 'required|date',
-        'start_time' => 'required|time',
-        'end_time' => 'required|time',
+        'start_time' => 'required|date_format:H:i',
+        'end_time' => 'required|date_format:H:i',
+        'duration' => 'required|numeric|min:0',
         'cost' => 'required|numeric|min:0',
         'doctor_id' => 'required|exists:doctors,id',
         'patient_id' => 'required|exists:patients,id'
@@ -126,6 +129,7 @@ public function __construct()
       $visit->date = $request->input('date');
       $visit->start_time = $request->input('start_time');
       $visit->end_time = $request->input('end_time');
+      $visit->duration = $request->input('duration');
       $visit->cost = $request->input('cost');
       $visit->doctor_id = $request->input('doctor_id');
       $visit->patient_id = $request->input('patient_id');

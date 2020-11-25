@@ -35,6 +35,10 @@
                     <input type="time" class="form-control" name="end_time" id="end_time" value="{{ old('end_time', $visit->end_time) }}" />
                 </div>
                 <div class="form-group">
+                    <label for="duration">Duration</label>
+                    <input type="text" class="form-control" name="duration" id="duration" value="{{ old('duration', $visit->duration) }}" />
+                </div>
+                <div class="form-group">
                     <label for="cost">Cost</label>
                     <input type="text" class="form-control" name="cost" id="cost" value="{{ old('cost', $visit->cost) }}" />
                 </div>

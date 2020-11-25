@@ -25,6 +25,10 @@
                               <td>{{ $visit->end_time }}</td>
                             </tr>
                             <tr>
+                              <td>Duration</td>
+                              <td>{{ $visit->duration }}</td>
+                            </tr>
+                            <tr>
                               <td>Cost</td>
                               <td>{{ $visit->cost }}</td>
                             </tr>
