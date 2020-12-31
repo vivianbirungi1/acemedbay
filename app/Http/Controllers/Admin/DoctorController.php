@@ -52,13 +52,24 @@ public function __construct()
     public function store(Request $request)
     {
       $request ->validate([
+        'name' => 'required|max:191',
+        'address' => 'required|max:191',
+        'phone' => 'required|size:10',
+        'email' => 'required|email|min:3|max:191',
         'start_date' => 'required|date',
-        'user_id' => 'required|numeric|min:0'
-        // 'user_id' => 'required|exists:users,id'
+        'user_id' => 'required|numeric|min:0',
+        'password' => 'required|numeric|min:5'
       ]);
 
-      $doctor = new Doctor();
+      $user = new User();
+      $user->name = $request->input('name');
+      $user->address = $request->input('address');
+      $user->phone = $request->input('phone');
+      $user->email = $request->input('email');
+      $user->password = $request->input('password');
+      $doctor->save();
 
+      $doctor = new Doctor();
       $doctor->start_date = $request->input('start_date');
       $doctor->user_id = $request->input('user_id');
       $doctor->save();
@@ -106,13 +117,24 @@ public function __construct()
     public function update(Request $request, $id)
     {
       $request ->validate([
+        'name' => 'required|max:191',
+        'address' => 'required|max:191',
+        'phone' => 'required|size:10',
+        'email' => 'required|email|min:3|max:191',
         'start_date' => 'required|date',
-        'user_id' => 'required|numeric|min:0'
-        // 'user_id' => 'required|exists:users,id'
+        'user_id' => 'required|numeric|min:0',
+        'password' => 'required|numeric|min:5'
       ]);
 
-      $doctor = Doctor::findOrFail($id);
+      $user = User::findOrFail($id);
+      $user->name = $request->input('name');
+      $user->address = $request->input('address');
+      $user->phone = $request->input('phone');
+      $user->email = $request->input('email');
+      $user->password = $request->input('password');
+      $doctor->save();
 
+      $doctor = Doctor::findOrFail($id);
       $doctor->start_date = $request->input('start_date');
       $doctor->user_id = $request->input('user_id');
       $doctor->save();

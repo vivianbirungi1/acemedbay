@@ -48,6 +48,16 @@ class User extends Authenticatable
       return $this->belongsToMany('App\Models\Role', 'user_role');
     }
 
+    public function doctor()
+    {
+      return $this->hasOne('App\Models\Doctor');
+    }
+
+    public function patient()
+    {
+      return $this->belongsToMany('App\Models\Patient');
+    }
+
 
     public function authorizeRoles($roles)
   {

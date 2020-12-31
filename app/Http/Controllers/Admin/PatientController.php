@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Patient;
+use App\Models\User;
+use App\Models\MedicalInsurance;
 
 class PatientController extends Controller
 {
@@ -40,7 +42,12 @@ public function __construct()
      */
     public function create()
     {
-        return view('admin.patients.create');
+
+        $medical_insurances = MedicalInsurance::all();
+
+        return view('admin.patients.create', [
+          'medical_insurances' => $medical_insurances
+        ]);
     }
 
     /**
@@ -52,17 +59,28 @@ public function __construct()
     public function store(Request $request)
     {
       $request ->validate([
-        'policy_number' => 'required|string|max:199',
-        'insurance_company' => 'required|string|max:199',
-        'user_id' => 'required|numeric|min:0'
-        // 'user_id' => 'required|exists:users,id'
+        'name' => 'required|max:191',
+        'address' => 'required|max:191',
+        'phone' => 'required|size:10',
+        'email' => 'required|email|min:3|max:191',
+        'medical_insurance_id' => 'required',
+        'policy_number' => 'required|integer|min:4',
+        'user_id' => 'required|numeric|min:0',
+        'password' => 'required|numeric|min:5'
       ]);
 
-      $patient = new Patient();
+      $user = new User();
+      $user->name = $request->input('name');
+      $user->address = $request->input('address');
+      $user->phone = $request->input('phone');
+      $user->email = $request->input('email');
+      $user->password = $request->input('password');
+      $user->save();
 
+      $patient = new Patient();
       $patient->policy_number = $request->input('policy_number');
-      $patient->insurance_company = $request->input('insurance_company');
       $patient->user_id = $request->input('user_id');
+      $patient->medical_insurance_id = $request->input('medical_insurance_id');
       $patient->save();
 
       return redirect()->route('admin.patients.index');
@@ -92,9 +110,11 @@ public function __construct()
     public function edit($id)
     {
       $patient = Patient::findOrFail($id);
+      $medical_insurances = MedicalInsurance::all();
 
        return view('admin.patients.edit', [
-         'patient' => $patient
+         'patient' => $patient,
+         'medical_insurances' => $medical_insurances
        ]);
     }
 
@@ -108,17 +128,28 @@ public function __construct()
     public function update(Request $request, $id)
     {
       $request ->validate([
-        'policy_number' => 'required|string|max:199',
-        'insurance_company' => 'required|string|max:199',
-        'user_id' => 'required|numeric|min:0'
-        // 'user_id' => 'required|exists:users,id'
+        'name' => 'required|max:191',
+        'address' => 'required|max:191',
+        'phone' => 'required|size:10',
+        'email' => 'required|email|min:3|max:191',
+        'medical_insurance_id' => 'required',
+        'policy_number' => 'required|integer|min:4',
+        'user_id' => 'required|numeric|min:0',
+        'password' => 'required|numeric|min:5'
       ]);
 
-      $patient = Patient::findOrFail($id);
+      $user = User::findOrFail($id);
+      $user->name = $request->input('name');
+      $user->address = $request->input('address');
+      $user->phone = $request->input('phone');
+      $user->email = $request->input('email');
+      $user->password = $request->input('password');
+      $user->save();
 
+      $patient = Patient::findOrFail($id);
       $patient->policy_number = $request->input('policy_number');
-      $patient->insurance_company = $request->input('insurance_company');
       $patient->user_id = $request->input('user_id');
+      $patient->medical_insurance_id = $request->input('medical_insurance_id');
       $patient->save();
 
       return redirect()->route('admin.patients.index');

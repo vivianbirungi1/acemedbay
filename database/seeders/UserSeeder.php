@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Hash;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Doctor;
+use App\Models\Patient;
 
 class UserSeeder extends Seeder
 {
@@ -23,34 +25,49 @@ class UserSeeder extends Seeder
 
       $admin = new User();
       $admin->name = 'Viv Bir';
-      $admin->email = 'admin@acemedbay.ie';
+      $admin->address = '64 Default Lane';
       $admin->phone = '0896657865';
+      $admin->email = 'admin@acemedbay.ie';
       $admin->password = Hash::make('secret');
       $admin->save();
       $admin->roles()->attach($role_admin);
 
       $user = new User();
       $user->name = 'Ted Bo';
-      $user->email = 'user@acemedbay.ie';
+      $user->address = '97 Default Lane';
       $user->phone = '0896657865';
+      $user->email = 'user@acemedbay.ie';
       $user->password = Hash::make('secret');
       $user->save();
       $user->roles()->attach($role_user);
 
       $doctor = new User();
       $doctor->name = 'doctor';
-      $doctor->email = 'doctor@acemedbay.ie';
+      $doctor->address = '58 Default Lane';
       $doctor->phone = '0865543216';
+      $doctor->email = 'doctor@acemedbay.ie';
       $doctor->password = Hash::make('secret');
       $doctor->save();
       $doctor->roles()->attach($role_doctor);
 
+      $doctor = new Doctor();
+      $doctor->start_date = "2020-11-19";
+      $doctor->user_id = "1";
+      $doctor->save();
+
       $patient = new User();
       $patient->name = 'patient';
-      $patient->email = 'patient@acemedbay.ie';
+      $patient->address = '13 Default Lane';
       $patient->phone = '0865423657';
+      $patient->email = 'patient@acemedbay.ie';
       $patient->password = Hash::make('secret');
       $patient->save();
       $patient->roles()->attach($role_patient);
+
+      $patient = new Patient();
+      $patient->policy_number = "456987";
+      $patient->user_id = "2";
+      $patient->medical_insurance_id = "1";
+      $patient->save();
     }
 }

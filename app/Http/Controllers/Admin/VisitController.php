@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Visit;
+use App\Models\Doctor;
+use App\Models\Patient;
 
 class VisitController extends Controller
 {
@@ -40,7 +42,12 @@ public function __construct()
      */
     public function create()
     {
-        return view('admin.visits.create');
+        $doctors = Doctor::all();
+        $patients = Patient::all();
+        return view('admin.visits.create', [
+          'doctors' => $doctors,
+          'patients' => $patients
+        ]);
     }
 
     /**
@@ -55,7 +62,7 @@ public function __construct()
         'date' => 'required|date',
         'start_time' => 'required|date_format:H:i',
         'end_time' => 'required|date_format:H:i',
-        'duration' => 'required|numeric|min:0',
+        'duration' => 'required',
         'cost' => 'required|numeric|min:0',
         'doctor_id' => 'required|exists:doctors,id',
         'patient_id' => 'required|exists:patients,id'
@@ -99,9 +106,13 @@ public function __construct()
     public function edit($id)
     {
       $visit = Visit::findOrFail($id);
+      $doctors = Doctor::all();
+      $patients = Patient::all();
 
        return view('admin.visits.edit', [
-         'visit' => $visit
+         'visit' => $visit,
+         'doctors' => $doctors,
+         'patients' => $patients
        ]);
     }
 
@@ -118,7 +129,7 @@ public function __construct()
         'date' => 'required|date',
         'start_time' => 'required|date_format:H:i',
         'end_time' => 'required|date_format:H:i',
-        'duration' => 'required|numeric|min:0',
+        'duration' => 'required',
         'cost' => 'required|numeric|min:0',
         'doctor_id' => 'required|exists:doctors,id',
         'patient_id' => 'required|exists:patients,id'

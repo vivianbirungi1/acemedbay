@@ -1,0 +1,37 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\MedicalInsurance;
+
+class MedicalInsuranceSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $medical_insurance = new MedicalInsurance();
+        $medical_insurance->insurance_company = "Health Insurance Ltd";
+      //  $medical_insurance->policy_number = "45632644";
+        $medical_insurance->save();
+
+        $medical_insurance = new MedicalInsurance();
+        $medical_insurance->insurance_company = "New Health Insurance";
+      //  $medical_insurance->policy_number = "45638464";
+        $medical_insurance->save();
+
+        $medical_insurance = new MedicalInsurance();
+        $medical_insurance->insurance_company = "GoCompare Health Insurance";
+      //  $medical_insurance->policy_number = "45694734";
+        $medical_insurance->save();
+
+        $medical_insurance = new MedicalInsurance();
+        $medical_insurance->insurance_company = "VHI Health Insurance Ltd";
+      //  $medical_insurance->policy_number = "49830944";
+        $medical_insurance->save();
+    }
+}

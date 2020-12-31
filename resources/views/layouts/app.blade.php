@@ -52,6 +52,17 @@
                                 </li>
                             @endif
                         @else
+                        @if (Auth::user('admin'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.doctors.index') }}">{{ __('Doctors') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.patients.index') }}">{{ __('Patients') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.visits.index') }}">{{ __('Visits') }}</a>
+                        </li>
+                        @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

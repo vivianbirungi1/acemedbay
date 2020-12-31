@@ -43,12 +43,20 @@
                     <input type="text" class="form-control" name="cost" id="cost" value="{{ old('cost', $visit->cost) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="doctor_id">Docotr ID</label>
-                    <input type="text" class="form-control" name="doctor_id" id="doctor_id" value="{{ old('doctor_id', $visit->doctor_id) }}" />
+                    <label for="doctor_id">Doctor ID</label>
+                    <select name="doctor_id">
+                      @foreach ($doctors as $doctor)
+                        <option value="{{ $doctor->id }}" {{ (old('doctor_id', $visit->doctor->id) == $doctor->id) ? "selected" : "" }} >{{ $doctor->id }}</option>
+                      @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="patient_id">Patient ID</label>
-                    <input type="text" class="form-control" name="patient_id" id="patient_id" value="{{ old('patient_id', $visit->patient_id) }}" />
+                    <select name="patient_id">
+                      @foreach ($patients as $patient)
+                        <option value="{{ $patient->id }}" {{ (old('patient_id', $visit->patient->id) == $patient->id) ? "selected" : "" }} >{{ $patient->id }}</option>
+                      @endforeach
+                    </select>
                 </div>
                 <div>
                   <a href="{{ route('admin.visits.index') }}" class="btn btn-default">Cancel</a>

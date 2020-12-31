@@ -6,12 +6,29 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="card">
                 <div class="card-header">
-                  Doctor {{ $doctor->start_date }}
+                  Doctor {{ $doctor->name }}
                 </div>
 
                 <div class="card-body">
                       <table class="table table-hover">
                         <tbody>
+
+                          <tr>
+                            <td>Name</td>
+                            <td>{{ $doctor->name }}</td>
+                          </tr>
+                          <tr>
+                            <td>Address</td>
+                            <td>{{ $doctor->address }}</td>
+                          </tr>
+                          <tr>
+                            <td>PHone</td>
+                            <td>{{ $doctor->phone }}</td>
+                          </tr>
+                          <tr>
+                            <td>Email</td>
+                            <td>{{ $doctor->email }}</td>
+                          </tr>
                             <tr>
                               <td>Start Date</td>
                               <td>{{ $doctor->start_date }}</td>

@@ -19,16 +19,24 @@
                     @else
                       <table id="table-patients" class="table table-hover">
                         <thead>
+                          <th>Name</th>
+                          <th>Address</th>
+                          <th>Phone</th>
+                          <th>Email</th>
+                          <th>Medical Insurance</th>
                           <th>Policy Number</th>
-                          <th>Insurance Company</th>
                           <th>User ID</th>
                           <th>Actions</th>
                         </thead>
                         <tbody>
                           @foreach ($patients as $patient)
                             <tr data-id="{{ $patient->id }}">
+                              <td>{{ $patient->user->name }}</td>
+                              <td>{{ $patient->user->address }}</td>
+                              <td>{{ $patient->user->phone }}</td>
+                              <td>{{ $patient->user->email }}</td>
+                              <td>{{ $patient->medical_insurances->insurance_company }}</td>
                               <td>{{ $patient->policy_number }}</td>
-                              <td>{{ $patient->insurance_company }}</td>
                               <td>{{ $patient->user_id }}</td>
                               <td>
                                 <a href="{{ route('admin.patients.show', $patient->id )}}" class="btn btn-primary">View</a>

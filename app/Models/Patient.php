@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     use HasFactory;
+
+    public function visits()
+    {
+      return $this->hasMany('App\Models\Visit');
+    }
+
+    public function user()
+    {
+      return $this->belongsTo('App\Models\User');
+    }
+
+    public function medical_insurance()
+    {
+      return $this->hasMany('App\Models\MedicalInsurance');
+    }
 }

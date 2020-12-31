@@ -9,7 +9,7 @@
 
             <div class="card">
                 <div class="card-header">
-                  Visits
+                  Doctors
                   <a href="{{ route('admin.doctors.create')}}" class="btn btn-primary float-right">Add</a>
                 </div>
 
@@ -19,6 +19,10 @@
                     @else
                       <table id="table-doctors" class="table table-hover">
                         <thead>
+                          <th>Name</th>
+                          <th>Address</th>
+                          <th>Phone</th>
+                          <th>Email</th>
                           <th>Start Date</th>
                           <th>User ID</th>
                           <th>Actions</th>
@@ -26,6 +30,10 @@
                         <tbody>
                           @foreach ($doctors as $doctor)
                             <tr data-id="{{ $doctor->id }}">
+                              <td>{{ $doctor->user->name }}</td>
+                              <td>{{ $doctor->user->address }}</td>
+                              <td>{{ $doctor->user->phone }}</td>
+                              <td>{{ $doctor->user->email }}</td>
                               <td>{{ $doctor->start_date }}</td>
                               <td>{{ $doctor->user_id }}</td>
                               <td>
