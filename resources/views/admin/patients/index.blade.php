@@ -35,7 +35,7 @@
                               <td>{{ $patient->user->address }}</td>
                               <td>{{ $patient->user->phone }}</td>
                               <td>{{ $patient->user->email }}</td>
-                              <td>{{ $patient->medical_insurances->insurance_company }}</td>
+                              <td>{{ $patient->medical_insurance->insurance_company }}</td>
                               <td>{{ $patient->policy_number }}</td>
                               <td>{{ $patient->user_id }}</td>
                               <td>
