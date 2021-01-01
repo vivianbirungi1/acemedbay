@@ -13,6 +13,9 @@ use App\Http\Controllers\Admin\VisitController as AdminVisitController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Admin\PatientController as AdminPatientController;
 
+use App\Http\Controllers\Doctor\VisitController as DoctorVisitController;
+use App\Http\Controllers\Patient\VisitController as PatientVisitController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,3 +69,17 @@ Route::post('/admin/patients/store', [AdminPatientController::class, 'store'])->
 Route::get('/admin/patients/{id}/edit', [AdminPatientController::class, 'edit'])->name('admin.patients.edit');
 Route::put('/admin/patients/{id}', [AdminPatientController::class, 'update'])->name('admin.patients.update');
 Route::delete('/admin/patients/{id}', [AdminPatientController::class, 'destroy'])->name('admin.patients.destroy');
+
+//CRUD FOR VISITS IN DOCTOR
+Route::get('/doctor/visits', [DoctorVisitController::class, 'index'])->name('doctor.visits.index');
+Route::get('/doctor/visits/create', [DoctorVisitController::class, 'create'])->name('doctor.visits.create');
+Route::get('/doctor/visits/{id}', [DoctorVisitController::class, 'show'])->name('doctor.visits.show');
+Route::post('/doctor/visits/store', [DoctorVisitController::class, 'store'])->name('doctor.visits.store');
+Route::get('/doctor/visits/{id}/edit', [DoctorVisitController::class, 'edit'])->name('doctor.visits.edit');
+Route::put('/doctor/visits/{id}', [DoctorVisitController::class, 'update'])->name('doctor.visits.update');
+Route::delete('/doctor/visits/{id}', [DoctorVisitController::class, 'destroy'])->name('doctor.visits.destroy');
+
+//VIEW, SHOW AND DELETE FOR PATIENT
+Route::get('/patient/visits', [PatientVisitController::class, 'index'])->name('patient.visits.index');
+Route::get('/patient/visits/{id}', [PatientVisitController::class, 'show'])->name('patient.visits.show');
+Route::delete('/patient/visits/{id}', [PatientVisitController::class, 'destroy'])->name('patient.visits.destroy');

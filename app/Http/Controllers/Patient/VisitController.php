@@ -4,9 +4,21 @@ namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Visit;
 
 class VisitController extends Controller
 {
+
+  /**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
+{
+    $this->middleware('auth');
+    $this->middleware('role:patient, user'); //can add more authorisation to view the page e.g patient
+}
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,11 @@ class VisitController extends Controller
      */
     public function index()
     {
-        //
+      $visits = Visit::all();
+
+      return view('patient.visits.index', [
+        'visits' => $visits
+      ]);
     }
 
     /**
@@ -46,7 +62,11 @@ class VisitController extends Controller
      */
     public function show($id)
     {
-        //
+      $visit = Visit::findOrFail($id);
+
+       return view('patient.visits.show', [
+         'visit' => $visit
+       ]);
     }
 
     /**
@@ -80,6 +100,9 @@ class VisitController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $visit = Visit::findOrFail($id);
+      $visit->delete();
+
+      return redirect()->route('patient.visits.index');
     }
 }

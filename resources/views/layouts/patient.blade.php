@@ -33,17 +33,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                      @if (Auth::user('admin'))
+
                       <li class="nav-item">
-                          <a class="nav-link" href="{{ route('admin.doctors.index') }}">{{ __('Doctors') }}</a>
+                          <a class="nav-link" href="{{ route('patient.visits.index') }}">{{ __('Visits') }}</a>
                       </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('admin.patients.index') }}">{{ __('Patients') }}</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('admin.visits.index') }}">{{ __('Visits') }}</a>
-                      </li>
-                      @endif
+
 
                     </ul>
 
@@ -65,7 +59,7 @@
                         @else
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Home') }}</a>
+                            <a class="nav-link" href="{{ route('patient.home') }}">{{ __('Home') }}</a>
                         </li>
 
                             <li class="nav-item dropdown">
@@ -77,6 +71,7 @@
                         <a class="dropdown-item" href="{{ route('home') }}">
                             Dashboard
                         </a>
+
 
                                     <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             Logout
