@@ -18,4 +18,9 @@ class Visit extends Model
     {
       return $this->belongsTo('App\Models\Patient');
     }
+
+    // public function user()
+    // {
+    //   return $this->hasOne('App\Models\User');
+    // }
 }

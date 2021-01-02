@@ -155,11 +155,12 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $rid)
     {
-      $visit = Visit::findOrFail($id);
+      $visit = Visit::findOrFail($rid);
+
       $visit->delete();
 
-      return redirect()->route('admin.visits.index');
+      return redirect()->route('admin.visits.show', $id);
     }
 }

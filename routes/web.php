@@ -83,3 +83,13 @@ Route::delete('/doctor/visits/{id}', [DoctorVisitController::class, 'destroy'])-
 Route::get('/patient/visits', [PatientVisitController::class, 'index'])->name('patient.visits.index');
 Route::get('/patient/visits/{id}', [PatientVisitController::class, 'show'])->name('patient.visits.show');
 Route::delete('/patient/visits/{id}', [PatientVisitController::class, 'destroy'])->name('patient.visits.destroy');
+
+//for visits under patients in admin
+Route::get('/admin/patients/{id}/visits/create', [AdminVisitController::class, 'create'])->name('patient.visits.create');
+Route::post('/admin/patients/{id}/visits/store', [AdminVisitController::class, 'store'])->name('patient.visits.store');
+Route::delete('/admin/patients/{id}/visits/{rid}', [AdminVisitController::class, 'destroy'])->name('patient.visits.destroy');
+
+//for visits under doctors in admin
+Route::get('/admin/doctors/{id}/visits/create', [AdminVisitController::class, 'create'])->name('doctor.visits.create');
+Route::post('/admin/doctors/{id}/visits/store', [AdminVisitController::class, 'store'])->name('doctor.visits.store');
+Route::delete('/admin/doctors/{id}/visits/{rid}', [AdminVisitController::class, 'destroy'])->name('doctor.visits.destroy');

@@ -74,7 +74,7 @@ public function __construct()
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
-      $user->password = $request->input('password');
+      $user->password = Hash::make($request->password);
       $user->save();
 
       $patient = new Patient();
@@ -143,7 +143,8 @@ public function __construct()
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
-      $user->password = $request->input('password');
+      // $user->password = $request->input('password');
+      $user->password = Hash::make($request->password);
       $user->save();
 
       $patient = Patient::findOrFail($id);
