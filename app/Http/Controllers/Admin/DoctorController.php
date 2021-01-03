@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use App\Models\User;
+use App\Models\Visit;
+use Hash;
 
 class DoctorController extends Controller
 {
@@ -57,8 +60,7 @@ public function __construct()
         'phone' => 'required|size:10',
         'email' => 'required|email|min:3|max:191',
         'start_date' => 'required|date',
-        'user_id' => 'required|numeric|min:0',
-        'password' => 'required|numeric|min:5'
+        'user_id' => 'required|numeric|min:0'
       ]);
 
       $user = new User();
@@ -66,13 +68,15 @@ public function __construct()
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
-      $user->password = $request->input('password');
-      $doctor->save();
+      $user->password = Hash::make('secret');
+      $user->save();
 
       $doctor = new Doctor();
       $doctor->start_date = $request->input('start_date');
       $doctor->user_id = $request->input('user_id');
       $doctor->save();
+
+      $request->session()->flash('success', 'Doctor added successfully');
 
       return redirect()->route('admin.doctors.index');
     }
@@ -86,9 +90,11 @@ public function __construct()
     public function show($id)
     {
       $doctor = Doctor::findOrFail($id);
+      $visit = Visit::all();
 
        return view('admin.doctors.show', [
-         'doctor' => $doctor
+         'doctor' => $doctor,
+         'visit' => $visit
        ]);
     }
 
@@ -120,10 +126,8 @@ public function __construct()
         'name' => 'required|max:191',
         'address' => 'required|max:191',
         'phone' => 'required|size:10',
-        'email' => 'required|email|min:3|max:191',
-        'start_date' => 'required|date',
-        'user_id' => 'required|numeric|min:0',
-        'password' => 'required|numeric|min:5'
+        'email' => 'required|between:3,191|email|unique:users',
+        'start_date' => 'required|date'
       ]);
 
       $user = User::findOrFail($id);
@@ -131,13 +135,15 @@ public function __construct()
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
-      $user->password = $request->input('password');
-      $doctor->save();
+      $user->password = Hash::make('secret');
+      $user->save();
 
       $doctor = Doctor::findOrFail($id);
       $doctor->start_date = $request->input('start_date');
-      $doctor->user_id = $request->input('user_id');
+      $doctor->user_id = $user->id;
       $doctor->save();
+
+      $request->session()->flash('info', 'Doctor edited successfully');
 
       return redirect()->route('admin.doctors.index');
     }
@@ -148,10 +154,12 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
       $doctor = Doctor::findOrFail($id);
       $doctor->delete();
+
+      $request->session()->flash('danger', 'Doctor deleted');
 
       return redirect()->route('admin.doctors.index');
     }

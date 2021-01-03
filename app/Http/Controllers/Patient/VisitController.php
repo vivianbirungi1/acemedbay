@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Patient;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Visit;
+use App\Models\Patient;
+use Auth;
 
 class VisitController extends Controller
 {
@@ -17,7 +19,7 @@ class VisitController extends Controller
 public function __construct()
 {
     $this->middleware('auth');
-    $this->middleware('role:patient, user'); //can add more authorisation to view the page e.g patient
+    $this->middleware('role:patient'); //can add more authorisation to view the page e.g patient
 }
     /**
      * Display a listing of the resource.
@@ -26,10 +28,14 @@ public function __construct()
      */
     public function index()
     {
-      $visits = Visit::all();
+      $user = Auth::user();
+      $visits =  Visit::all();
+      //$visits = $user->visits()->orderBy('created_at', 'desc')->paginate(0);
+      $patient = Patient::all();
 
       return view('patient.visits.index', [
-        'visits' => $visits
+        'visits' => $visits,
+        'patient' => $patient
       ]);
     }
 
@@ -63,9 +69,11 @@ public function __construct()
     public function show($id)
     {
       $visit = Visit::findOrFail($id);
+      $patient = Patient::all();
 
        return view('patient.visits.show', [
-         'visit' => $visit
+         'visit' => $visit,
+         'patient' => $patient
        ]);
     }
 
@@ -98,11 +106,13 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $rid)
     {
-      $visit = Visit::findOrFail($id);
+      $visit = Visit::findOrFail($rid);
       $visit->delete();
 
-      return redirect()->route('patient.visits.index');
+      $request->session()->flash('danger', 'Patient visit deleted');
+
+      return redirect()->route('patient.visits.index', $id);
     }
 }

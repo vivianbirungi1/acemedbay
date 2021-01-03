@@ -79,6 +79,8 @@ public function __construct()
       $visit->patient_id = $request->input('patient_id');
       $visit->save();
 
+      $request->session()->flash('success', 'Doctor visit added successfully');
+
       return redirect()->route('doctor.visits.index');
     }
 
@@ -146,6 +148,8 @@ public function __construct()
       $visit->patient_id = $request->input('patient_id');
       $visit->save();
 
+      $request->session()->flash('info', 'Doctor visit edited successfully');
+
       return redirect()->route('doctor.visits.index');
     }
 
@@ -155,10 +159,12 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
       $visit = Visit::findOrFail($id);
       $visit->delete();
+
+      $request->session()->flash('danger', 'Doctor visit deleted');
 
       return redirect()->route('doctor.visits.index');
     }

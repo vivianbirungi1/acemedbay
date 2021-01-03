@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\User;
+use Hash;
 use App\Models\MedicalInsurance;
 
 class PatientController extends Controller
@@ -43,10 +44,12 @@ public function __construct()
     public function create()
     {
 
+        $users = User::all();
         $medical_insurances = MedicalInsurance::all();
 
         return view('admin.patients.create', [
-          'medical_insurances' => $medical_insurances
+          'medical_insurances' => $medical_insurances,
+          'users' => $users
         ]);
     }
 
@@ -65,8 +68,7 @@ public function __construct()
         'email' => 'required|email|min:3|max:191',
         'medical_insurance_id' => 'required',
         'policy_number' => 'required|integer|min:4',
-        'user_id' => 'required|numeric|min:0',
-        'password' => 'required|numeric|min:5'
+        'user_id' => 'required|numeric|min:0'
       ]);
 
       $user = new User();
@@ -74,7 +76,7 @@ public function __construct()
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
-      $user->password = Hash::make($request->password);
+      $user->password = Hash::make('secret');
       $user->save();
 
       $patient = new Patient();
@@ -82,6 +84,8 @@ public function __construct()
       $patient->user_id = $request->input('user_id');
       $patient->medical_insurance_id = $request->input('medical_insurance_id');
       $patient->save();
+
+      $request->session()->flash('success', 'Patient added successfully');
 
       return redirect()->route('admin.patients.index');
     }
@@ -133,9 +137,7 @@ public function __construct()
         'phone' => 'required|size:10',
         'email' => 'required|email|min:3|max:191',
         'medical_insurance_id' => 'required',
-        'policy_number' => 'required|integer|min:4',
-        'user_id' => 'required|numeric|min:0',
-        'password' => 'required|numeric|min:5'
+        'policy_number' => 'required|integer|min:4'
       ]);
 
       $user = User::findOrFail($id);
@@ -143,15 +145,16 @@ public function __construct()
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
-      // $user->password = $request->input('password');
-      $user->password = Hash::make($request->password);
+      $user->password = Hash::make('secret');
       $user->save();
 
       $patient = Patient::findOrFail($id);
       $patient->policy_number = $request->input('policy_number');
-      $patient->user_id = $request->input('user_id');
-      $patient->medical_insurance_id = $request->input('medical_insurance_id');
+      $patient->user_id = $user->id;
+      $patient->medical_insurance_id = $medical_insurance->id;
       $patient->save();
+
+      $request->session()->flash('info', 'Patient edited successfully');
 
       return redirect()->route('admin.patients.index');
     }
@@ -162,10 +165,12 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
       $patient = Patient::findOrFail($id);
       $patient->delete();
+
+      $request->session()->flash('danger', 'Patient deleted');
 
       return redirect()->route('admin.patients.index');
     }

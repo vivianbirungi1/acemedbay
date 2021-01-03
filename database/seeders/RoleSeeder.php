@@ -21,10 +21,10 @@ class RoleSeeder extends Seeder
       $role_admin->save(); //stores admin role
 
 
-      $role_user = new Role();
-      $role_user->name = 'user';
-      $role_user->description = 'An oridnary user';
-      $role_user->save();
+      // $role_user = new Role();
+      // $role_user->name = 'user';
+      // $role_user->description = 'An oridnary user';
+      // $role_user->save();
 
       $role_doctor = new Role();
       $role_doctor->name = 'doctor';
