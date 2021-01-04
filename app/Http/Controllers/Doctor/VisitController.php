@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Visit;
 use App\Models\Doctor;
 use App\Models\Patient;
+use Auth;
 
 class VisitController extends Controller
 {
@@ -28,7 +29,8 @@ public function __construct()
      */
     public function index()
     {
-      $visits = Visit::all();
+      $user = Auth::user();
+      $visits = $user->doctor->visits()->orderBy('date', 'asc')->paginate(8);
 
       return view('doctor.visits.index', [
         'visits' => $visits

@@ -90,6 +90,6 @@ Route::post('/admin/patients/{id}/visits/store', [AdminVisitController::class, '
 //Route::delete('/admin/patients/{id}/visits/{rid}', [AdminVisitController::class, 'destroy'])->name('patient.visits.destroy');
 
 //for visits under doctors in admin
-Route::get('/admin/doctors/{id}/visits/create', [AdminVisitController::class, 'create'])->name('admin.visits.create');
-Route::post('/admin/doctors/{id}/visits/store', [AdminVisitController::class, 'store'])->name('admin.visits.store');
+Route::get('/admin/doctors/{id}/visits/create', [AdminVisitController::class, 'create'])->name('doctor.visits.create');
+Route::post('/admin/doctors/{id}/visits/store', [AdminVisitController::class, 'store'])->name('doctor.visits.store');
 //Route::delete('/admin/doctors/{id}/visits/{rid}', [AdminVisitController::class, 'destroy'])->name('doctor.visits.destroy');

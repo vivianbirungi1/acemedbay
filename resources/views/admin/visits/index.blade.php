@@ -25,7 +25,9 @@
                           <th>Duration</th>
                           <th>Cost</th>
                           <th>Doctor ID</th>
+                          <th>Doctor Name</th>
                           <th>Patient ID</th>
+                          <th>Patient Name</th>
                           <th>Actions</th>
                         </thead>
                         <tbody>
@@ -37,7 +39,9 @@
                               <td>{{ $visit->duration }}</td>
                               <td>{{ $visit->cost }}</td>
                               <td>{{ $visit->doctor_id }}</td>
+                              <td>{{ $visit->doctor->user->name }}</td>
                               <td>{{ $visit->patient_id }}</td>
+                              <td>{{ $visit->patient->user->name }}</td>
                               <td>
                                 <a href="{{ route('admin.visits.show', $visit->id )}}" class="btn btn-primary">View</a>
                                 <a href="{{ route('admin.visits.edit', $visit->id )}}" class="btn btn-warning">Edit</a>

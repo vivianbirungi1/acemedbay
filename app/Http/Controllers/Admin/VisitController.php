@@ -44,9 +44,11 @@ public function __construct()
     {
         $doctors = Doctor::all();
         $patients = Patient::all();
+        $visits = Visit::all();
         return view('admin.visits.create', [
           'doctors' => $doctors,
-          'patients' => $patients
+          'patients' => $patients,
+          'visits' => $visits
         ]);
     }
 

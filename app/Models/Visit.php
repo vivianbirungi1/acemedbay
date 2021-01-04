@@ -11,16 +11,16 @@ class Visit extends Model
 
     public function doctor()
     {
-      return $this->belongsTo('App\Models\Doctor');
+      return $this->belongsTo('App\Models\Doctor', 'doctor_id');
     }
 
     public function patient()
     {
-      return $this->belongsTo('App\Models\Patient');
+      return $this->belongsTo('App\Models\Patient', 'patient_id');
     }
 
-    public function user()
-    {
-      return $this->belongsTo('App\Models\User');
-    }
+    // public function user()
+    // {
+    //   return $this->belongsTo('App\Models\User');
+    // }
 }

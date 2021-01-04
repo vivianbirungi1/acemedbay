@@ -11,7 +11,7 @@ class Patient extends Model
 
     public function visits()
     {
-      return $this->hasMany('App\Models\Visit');
+      return $this->hasMany('App\Models\Visit', 'patient_id');
     }
 
     public function user()

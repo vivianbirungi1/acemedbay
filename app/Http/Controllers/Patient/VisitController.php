@@ -29,9 +29,10 @@ public function __construct()
     public function index()
     {
       $user = Auth::user();
-      $visits =  Visit::all();
-      //$visits = $user->visits()->orderBy('created_at', 'desc')->paginate(0);
-      $patient = Patient::all();
+    //  $visits = $user->patient->visits()->orderBy('date', 'asc')->paginate(8);
+
+       $visits =  Visit::all();
+       $patient = Patient::all();
 
       return view('patient.visits.index', [
         'visits' => $visits,

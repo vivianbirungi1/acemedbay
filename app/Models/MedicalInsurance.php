@@ -11,6 +11,6 @@ class MedicalInsurance extends Model
 
     public function patient()
     {
-      return $this->hasMany('App\Models\Patient');
+      return $this->hasMany('App\Models\Patient', 'patient_id');
     }
 }

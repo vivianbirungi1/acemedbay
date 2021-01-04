@@ -37,8 +37,16 @@
                               <td>{{ $visit->doctor_id }}</td>
                             </tr>
                             <tr>
+                              <td>Doctor Name</td>
+                              <td>{{ $visit->doctor->user->name }}</td>
+                            </tr>
+                            <tr>
                               <td>Patient ID</td>
                               <td>{{ $visit->patient_id }}</td>
+                            </tr>
+                            <tr>
+                              <td>Patient Name</td>
+                              <td>{{ $visit->patient->user->name }}</td>
                             </tr>
                         </tbody>
                       </table>
