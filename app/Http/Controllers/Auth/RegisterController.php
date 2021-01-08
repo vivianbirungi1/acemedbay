@@ -85,7 +85,13 @@ class RegisterController extends Controller
         $user->save();
       //  $user->roles()->attach($role_patient);
 
-        $user->roles()->attach(Role::where('name', 'user')->first());
+      $patient = new Patient();
+      $patient->medical_insurance_id = '1';
+      $patient->policy_number = '29384';
+      $patient->user_id = $user->id;
+      $patient->save();
+
+      $user->roles()->attach(Role::where('name', 'patient')->first());
 
         return $user;
     }
