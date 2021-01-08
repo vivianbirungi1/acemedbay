@@ -173,6 +173,6 @@ public function __construct()
 
       $request->session()->flash('danger', 'Patient deleted');
 
-      return redirect()->route('admin.patients.index', $id);
+      return redirect()->route('admin.patients.index');
     }
 }

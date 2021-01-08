@@ -62,8 +62,8 @@ public function __construct()
     {
       $request ->validate([
         'date' => 'required|date',
-        'start_time' => 'required|date_format:H:i:s',
-        'end_time' => 'required|date_format:H:i:s',
+        'start_time' => 'required|date_format:H:i',
+        'end_time' => 'required|date_format:H:i',
         'duration' => 'required',
         'cost' => 'required|numeric|min:0',
         'doctor_id' => 'required|exists:doctors,id',

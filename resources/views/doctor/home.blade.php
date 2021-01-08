@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in as a doctor!
+                    <img src="/assets/img/doctor.png" class="img-fluid" alt="...">
                 </div>
             </div>
         </div>

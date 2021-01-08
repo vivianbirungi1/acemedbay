@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in as an Admin!
+                    <img src="/assets/img/admin.png" class="img-fluid" alt="...">
                 </div>
             </div>
         </div>

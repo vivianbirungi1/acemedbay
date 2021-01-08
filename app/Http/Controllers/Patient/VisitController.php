@@ -19,7 +19,7 @@ class VisitController extends Controller
 public function __construct()
 {
     $this->middleware('auth');
-    $this->middleware('role:patient'); //can add more authorisation to view the page e.g patient
+    $this->middleware('role:patient'); //the user role authorised to see the page. can add more authorisation to view the page e.g patient
 }
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ public function __construct()
      */
     public function index()
     {
-      $user = Auth::user();
+      $user = Auth::user(); //checking for the authorised user
       $visits = $user->patient->visits()->orderBy('date', 'asc')->paginate(8);
 
        //$visits =  Visit::all();

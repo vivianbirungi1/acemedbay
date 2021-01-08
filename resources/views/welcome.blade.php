@@ -16,10 +16,14 @@
 
                     Welcome to AceMedBay!
 
+                    <br>
+
+                    <img src="assets/img/welcome.png" class="img-fluid" alt="...">
+
                   </br>
                   </br>
 
-                  Read more <a href="{{ route('about') }}"> about us</a>
+                  Read more <a href="{{ route('about') }}"> About Us</a>
 
                 </div>
             </div>
