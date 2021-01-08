@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function patient()
     {
-      return $this->belongsToMany('App\Models\Patient');
+      return $this->hasOne('App\Models\Patient');
     }
 
 

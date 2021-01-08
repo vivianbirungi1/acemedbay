@@ -74,7 +74,7 @@
         <div class="card-header">
           Visits
 
-          <a href="{{ route('admin.visits.create', $visit->id) }}" class="btn btn-primary ">Add</a>
+          <a href="{{ route('admin.visits.create') }}" class="btn btn-primary ">Add</a>
 
         </div>
         <div class="card-body">

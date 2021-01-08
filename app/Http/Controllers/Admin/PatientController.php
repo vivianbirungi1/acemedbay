@@ -131,16 +131,19 @@ public function __construct()
      */
     public function update(Request $request, $id)
     {
+
+      $patient = Patient::findOrFail($id);
+
       $request ->validate([
         'name' => 'required|max:191',
         'address' => 'required|max:191',
         'phone' => 'required|size:10',
-        'email' => 'required|email|min:3|max:191',
+        'email' => 'required|between:3,191|email|unique:users,email,' . $patient->user_id, //
         'medical_insurance_id' => 'required',
         'policy_number' => 'required|integer|min:4'
       ]);
 
-      $user = User::findOrFail($id);
+      $user = User::findOrFail($patient->user_id);
       $user->name = $request->input('name');
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
@@ -148,10 +151,8 @@ public function __construct()
       $user->password = Hash::make('secret');
       $user->save();
 
-      $patient = Patient::findOrFail($id);
       $patient->policy_number = $request->input('policy_number');
-      $patient->user_id = $user->id;
-      $patient->medical_insurance_id = $medical_insurance->id;
+      $patient->medical_insurance_id = $request->input('medical_insurance_id');
       $patient->save();
 
       $request->session()->flash('info', 'Patient edited successfully');
@@ -172,6 +173,6 @@ public function __construct()
 
       $request->session()->flash('danger', 'Patient deleted');
 
-      return redirect()->route('admin.patients.index');
+      return redirect()->route('admin.patients.index', $id);
     }
 }

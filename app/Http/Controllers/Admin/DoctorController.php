@@ -122,15 +122,20 @@ public function __construct()
      */
     public function update(Request $request, $id)
     {
+
+      $doctor = Doctor::findOrFail($id);
+
       $request ->validate([
         'name' => 'required|max:191',
         'address' => 'required|max:191',
         'phone' => 'required|size:10',
-        'email' => 'required|between:3,191|email|unique:users',
+        'email' => 'required|between:3,191|email|unique:users,email,' . $doctor->user_id, //
         'start_date' => 'required|date'
       ]);
 
-      $user = User::findOrFail($id);
+
+
+      $user = User::findOrFail($doctor->user_id);
       $user->name = $request->input('name');
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
@@ -138,9 +143,8 @@ public function __construct()
       $user->password = Hash::make('secret');
       $user->save();
 
-      $doctor = Doctor::findOrFail($id);
+
       $doctor->start_date = $request->input('start_date');
-      $doctor->user_id = $user->id;
       $doctor->save();
 
       $request->session()->flash('info', 'Doctor edited successfully');
@@ -161,6 +165,6 @@ public function __construct()
 
       $request->session()->flash('danger', 'Doctor deleted');
 
-      return redirect()->route('admin.doctors.index');
+      return redirect()->route('admin.doctors.index', $id);
     }
 }

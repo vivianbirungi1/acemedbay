@@ -47,7 +47,7 @@
                                 <form style="display:inline-block" method="POST" action="{{ route('patient.visits.destroy', $visit->id) }}">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <button type="submit" class="form-control btn btn-danger">Delete</button>
+                                    <button type="submit" class="form-control btn btn-danger">Cancel</button>
                                 </form>
                               </td>
                             </tr>

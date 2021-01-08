@@ -62,8 +62,8 @@ public function __construct()
     {
       $request ->validate([
         'date' => 'required|date',
-        'start_time' => 'required|date_format:H:i',
-        'end_time' => 'required|date_format:H:i',
+        'start_time' => 'required|date_format:H:i:s',
+        'end_time' => 'required|date_format:H:i:s',
         'duration' => 'required',
         'cost' => 'required|numeric|min:0',
         'doctor_id' => 'required|exists:doctors,id',
@@ -131,8 +131,8 @@ public function __construct()
     {
       $request ->validate([
         'date' => 'required|date',
-        'start_time' => 'required|date_format:H:i',
-        'end_time' => 'required|date_format:H:i',
+        'start_time' => 'required|date_format:H:i:s',
+        'end_time' => 'required|date_format:H:i:s',
         'duration' => 'required',
         'cost' => 'required|numeric|min:0',
         'doctor_id' => 'required|exists:doctors,id',
@@ -161,14 +161,14 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id, $rid)
+    public function destroy(Request $request, $id)
     {
-      $visit = Visit::findOrFail($rid);
+      $visit = Visit::findOrFail($id);
 
       $visit->delete();
 
       $request->session()->flash('danger', 'Visit deleted');
 
-      return redirect()->route('admin.visits.show', $id);
+      return redirect()->route('admin.visits.index', $id);
     }
 }

@@ -23,7 +23,7 @@ class DoctorFactory extends Factory
     public function definition()
     {
         return [
-          'start_date' => $this->faker->date($format = 'Y-m-d', $max = 'now') ,
+          'start_date' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
           'user_id' => User::factory()
         ];
     }

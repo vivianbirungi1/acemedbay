@@ -29,9 +29,9 @@ public function __construct()
     public function index()
     {
       $user = Auth::user();
-    //  $visits = $user->patient->visits()->orderBy('date', 'asc')->paginate(8);
+      $visits = $user->patient->visits()->orderBy('date', 'asc')->paginate(8);
 
-       $visits =  Visit::all();
+       //$visits =  Visit::all();
        $patient = Patient::all();
 
       return view('patient.visits.index', [
@@ -107,12 +107,12 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $rid)
+    public function destroy(Request $request, $id)
     {
-      $visit = Visit::findOrFail($rid);
+      $visit = Visit::findOrFail($id);
       $visit->delete();
 
-      $request->session()->flash('danger', 'Patient visit deleted');
+      $request->session()->flash('danger', 'Patient visit cencelled');
 
       return redirect()->route('patient.visits.index', $id);
     }
