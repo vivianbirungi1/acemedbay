@@ -26,15 +26,16 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME; //protected property $redirectTo, used to specify the redirect URL when user logs in. by default users, are redirected to /home route but a different URL can be specified.
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct() //to modify a method you need to override the method in the controller.
     {
         $this->middleware('guest')->except('logout');
+        //only a guest is able to run the login and register method but not logout. The middleware is allowing th eguest to access everything like login and register but not logout because only authorised users would neeed to logout.
     }
 }

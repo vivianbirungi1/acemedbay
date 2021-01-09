@@ -31,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME;  //protected property $redirectTo, used to specify the redirect URL when a user registers. by default users, are redirected to /home route but a different URL can be specified.
 
     /**
      * Create a new controller instance.
@@ -76,6 +76,7 @@ class RegisterController extends Controller
         //     'password' => Hash::make($data['password']),
         // ]);
 
+        //eveyrhting about the new user that will be logged when they are registering.  Uses the User model.
         $user = new User();
         $user->name = $data['name'];
         $user->address = $data['address'];
@@ -85,6 +86,7 @@ class RegisterController extends Controller
         $user->save();
       //  $user->roles()->attach($role_patient);
 
+      //want the user to be regiestered as a patient so we are using the Patient model and passing in some user informatiion that will be assigned to the every new patient.
       $patient = new Patient();
       $patient->medical_insurance_id = '1';
       $patient->policy_number = '29384';

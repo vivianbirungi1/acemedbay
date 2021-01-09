@@ -26,5 +26,5 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME;  //protected property $redirectTo, used to specify the redirect URL when user resets password. by default users, are redirected to /home route but a different URL can be specified.
 }

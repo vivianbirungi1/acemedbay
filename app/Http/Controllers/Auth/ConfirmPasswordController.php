@@ -26,7 +26,7 @@ class ConfirmPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME;  //protected property $redirectTo, used to specify the redirect URL when a user confirms password. by default users, are redirected to /home route but a different URL can be specified.
 
     /**
      * Create a new controller instance.

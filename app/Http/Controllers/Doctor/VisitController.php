@@ -19,7 +19,7 @@ class VisitController extends Controller
  */
 public function __construct()
 {
-    $this->middleware('auth');
+    $this->middleware('auth'); //only the authenticated user have access to the methods below. unauthenticated users will not have any access to these methods.
     $this->middleware('role:doctor'); //can add more authorisation to view the page e.g doctor
 }
     /**

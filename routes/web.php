@@ -32,25 +32,28 @@ Route::get('/', [PageController::class, 'welcome'])->name('welcome');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 
 
-Auth::routes();
+Auth::routes(['verify' => true]); //Laravel makes a shortcut for login,register routes. verify is to verofy the users email
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//using verified middleware to protect routes from unverified users
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified'); //when a user logs in they're taken to home using the HomeController
 
+//directing to the user and admin home page using the Admin and User Controller
 Route::get('/admin/home', [AdminHomeController::class, 'index'])->name('admin.home');
 Route::get('/user/home', [UserHomeController::class, 'index'])->name('user.home');
 
+//directing to the user and admin home page using the Doctor and Patient Controller
 Route::get('/doctor/home', [DoctorHomeController::class, 'index'])->name('doctor.home');
 Route::get('/patient/home', [PatientHomeController::class, 'index'])->name('patient.home');
 
 
 //CRUD FOR VISITS IN ADMIN
 Route::get('/admin/visits', [AdminVisitController::class, 'index'])->name('admin.visits.index');
-Route::get('/admin/visits/create', [AdminVisitController::class, 'create'])->name('admin.visits.create');
+Route::get('/admin/visits/create', [AdminVisitController::class, 'create'])->name('admin.visits.create'); //using a get request
 Route::get('/admin/visits/{id}', [AdminVisitController::class, 'show'])->name('admin.visits.show');
-Route::post('/admin/visits/store', [AdminVisitController::class, 'store'])->name('admin.visits.store');
+Route::post('/admin/visits/store', [AdminVisitController::class, 'store'])->name('admin.visits.store'); //using a post request
 Route::get('/admin/visits/{id}/edit', [AdminVisitController::class, 'edit'])->name('admin.visits.edit');
-Route::put('/admin/visits/{id}', [AdminVisitController::class, 'update'])->name('admin.visits.update');
-Route::delete('/admin/visits/{id}', [AdminVisitController::class, 'destroy'])->name('admin.visits.destroy');
+Route::put('/admin/visits/{id}', [AdminVisitController::class, 'update'])->name('admin.visits.update'); //using a put request
+Route::delete('/admin/visits/{id}', [AdminVisitController::class, 'destroy'])->name('admin.visits.destroy'); //using a delete request
 
 //CRUD FOR DOCTORS IN ADMIN
 Route::get('/admin/doctors', [AdminDoctorController::class, 'index'])->name('admin.doctors.index');

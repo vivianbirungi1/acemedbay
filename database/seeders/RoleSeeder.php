@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-      //creating 2 roles, want to seed db with roles and users
+      //creating roles, want to seed db with admin and users
       $role_admin = new Role(); //Role now stored in role admin , need to set name and description
       $role_admin->name = 'admin';
       $role_admin->description = 'An administrator';
