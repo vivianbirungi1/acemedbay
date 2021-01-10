@@ -11,12 +11,12 @@ class Visit extends Model
 
     public function doctor()
     {
-      return $this->belongsTo('App\Models\Doctor', 'doctor_id');
+      return $this->belongsTo('App\Models\Doctor', 'doctor_id'); // a visit belongs to a doctor. doctor table uses user id a foreign key so we are passing in the doctor id here.
     }
 
     public function patient()
     {
-      return $this->belongsTo('App\Models\Patient', 'patient_id');
+      return $this->belongsTo('App\Models\Patient', 'patient_id'); //a visit belongs to a patient. patient table uses user id a foreign key so we are passing in the patient id here.
     }
 
     // public function user()

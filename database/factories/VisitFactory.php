@@ -21,7 +21,7 @@ class VisitFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition()//using the faker library to generate values for visits
     {
         return [
           'date' => $this->faker->date($format = 'Y-m-d', $max = 'now'),

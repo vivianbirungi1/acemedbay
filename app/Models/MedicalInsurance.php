@@ -11,6 +11,6 @@ class MedicalInsurance extends Model
 
     public function patient()
     {
-      return $this->hasMany('App\Models\Patient', 'patient_id');
+      return $this->hasMany('App\Models\Patient', 'patient_id'); //a medical insurance comapny has many patients. passing in the pateint id because medinsurance is a foreign key on the patients table.
     }
 }

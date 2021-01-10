@@ -21,14 +21,14 @@ class UserFactory extends Factory
      * @return array
      */
     public function definition()
-    {
+    { //using the faker library to generate values for users
         return [
             'name' => $this->faker->name,
             'address' => $this->faker->address,
             'phone' => $this->faker->phoneNumber,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => 'secret1234', // password
+            'password' => 'secret1234', // password for all randomly generated users
             'remember_token' => Str::random(10),
         ];
     }

@@ -11,9 +11,9 @@ class CreateRolesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() //runs everyhting below in the Schema
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) { //creating tables and columns
             $table->id();
             $table->string('name');
             $table->string('description');
@@ -26,7 +26,7 @@ class CreateRolesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down() //undoesup method
     {
         Schema::dropIfExists('roles');
     }

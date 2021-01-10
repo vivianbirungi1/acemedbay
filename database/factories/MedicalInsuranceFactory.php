@@ -19,10 +19,10 @@ class MedicalInsuranceFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition() //using the faker library to generate values for MedicalInsurance
     {
         return [
-            'insurance_company' => $this->faker->company
+            'insurance_company' => $this->faker->company //faker library can generate names of random companies
         ];
     }
 }

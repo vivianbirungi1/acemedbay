@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $fillable = [
+    protected $fillable = [ //for fields in the user table.
         'name',
         'address',
         'phone',
@@ -45,22 +45,22 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function visits()
     {
-      return $this->hasMany('App\Models\Visit', 'user_id');
+      return $this->hasMany('App\Models\Visit', 'user_id'); //a user has many visits.
     }
 
     public function roles()
     {
-      return $this->belongsToMany('App\Models\Role', 'user_role');
+      return $this->belongsToMany('App\Models\Role', 'user_role'); //a user belongs to many roles, i.e doctors, patients, users
     }
 
     public function doctor()
     {
-      return $this->hasOne('App\Models\Doctor');
+      return $this->hasOne('App\Models\Doctor'); //a user has one doctor
     }
 
     public function patient()
     {
-      return $this->hasOne('App\Models\Patient');
+      return $this->hasOne('App\Models\Patient'); //a user has one patient
     }
 
 

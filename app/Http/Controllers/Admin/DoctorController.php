@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Doctor;
-use App\Models\User;
-use App\Models\Visit;
+use App\Models\Doctor; //passing in the Doctor model
+use App\Models\User; //passing in the User model
+use App\Models\Visit; //passing in the Visit model
 use Hash;
 
 class DoctorController extends Controller
@@ -27,9 +27,9 @@ public function __construct()
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() //index method displaying all doctors
     {
-      $doctors = Doctor::all();
+      $doctors = Doctor::all(); //calling all doctors using the Doctors model
 
       return view('admin.doctors.index', [
         'doctors' => $doctors
@@ -41,7 +41,7 @@ public function __construct()
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() //create method for doctors. displays the doctors form
     {
         return view('admin.doctors.create');
     }
@@ -52,9 +52,9 @@ public function __construct()
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //store method, validating th form from the create method.
     {
-      $request ->validate([
+      $request ->validate([ //validation rules for creating a doctor
         'name' => 'required|max:191',
         'address' => 'required|max:191',
         'phone' => 'required|size:10',
@@ -63,6 +63,7 @@ public function __construct()
         'user_id' => 'required|numeric|min:0'
       ]);
 
+      //creating a new User with user information and adding a nre doctor in with the doctor information
       $user = new User();
       $user->name = $request->input('name');
       $user->address = $request->input('address');
@@ -74,11 +75,11 @@ public function __construct()
       $doctor = new Doctor();
       $doctor->start_date = $request->input('start_date');
       $doctor->user_id = $request->input('user_id');
-      $doctor->save();
+      $doctor->save(); //save method to save the above information entered in the form
 
-      $request->session()->flash('success', 'Doctor added successfully');
+      $request->session()->flash('success', 'Doctor added successfully'); //flash message to show a doctor has been added successfully once new user is created and form submitted
 
-      return redirect()->route('admin.doctors.index');
+      return redirect()->route('admin.doctors.index'); //redirects the admin back to the index.
     }
 
     /**
@@ -87,10 +88,10 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) //show method to display on page when a single doctor is clicked.
     {
-      $doctor = Doctor::findOrFail($id);
-      $visit = Visit::all();
+      $doctor = Doctor::findOrFail($id); //displaying single doctor by ID
+      $visit = Visit::all(); //also displaying all visits relating to this doctor underneath on the show page
 
        return view('admin.doctors.show', [
          'doctor' => $doctor,
@@ -104,9 +105,9 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) ///edit method displays the edit form.
     {
-      $doctor = Doctor::findOrFail($id);
+      $doctor = Doctor::findOrFail($id); //editing a single  doctor by ID
 
        return view('admin.doctors.edit', [
          'doctor' => $doctor
@@ -120,7 +121,7 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) //update method, validates the form filled in from the edit. Requests the ID of the doctor being edited and validates the fields.
     {
 
       $doctor = Doctor::findOrFail($id);
@@ -129,7 +130,7 @@ public function __construct()
         'name' => 'required|max:191',
         'address' => 'required|max:191',
         'phone' => 'required|size:10',
-        'email' => 'required|between:3,191|email|unique:users,email,' . $doctor->user_id, //
+        'email' => 'required|between:3,191|email|unique:users,email,' . $doctor->user_id, //passing in this specific doctors user ID to show we are not submitting a duplicate entry of the email of the same doctor but rather updating it
         'start_date' => 'required|date'
       ]);
 
@@ -147,9 +148,9 @@ public function __construct()
       $doctor->start_date = $request->input('start_date');
       $doctor->save();
 
-      $request->session()->flash('info', 'Doctor edited successfully');
+      $request->session()->flash('info', 'Doctor edited successfully'); //displaying the flash message to say a doctor has been edited successfully
 
-      return redirect()->route('admin.doctors.index');
+      return redirect()->route('admin.doctors.index'); //rerdirects admin to index after doctor has been edited
     }
 
     /**
@@ -158,13 +159,13 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id) //destroy method to delete aspecific doctor by ID.
     {
-      $doctor = Doctor::findOrFail($id);
+      $doctor = Doctor::findOrFail($id); //finding the doctor by ID to delete them.
       $doctor->delete();
 
-      $request->session()->flash('danger', 'Doctor deleted');
+      $request->session()->flash('danger', 'Doctor deleted'); //displaying a flash message to say the docor has been deleted successfully.
 
-      return redirect()->route('admin.doctors.index', $id);
+      return redirect()->route('admin.doctors.index', $id); //redirecting to the index page once doctor has been deleted.
     }
 }

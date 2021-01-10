@@ -11,16 +11,16 @@ class Patient extends Model
 
     public function visits()
     {
-      return $this->hasMany('App\Models\Visit', 'patient_id');
+      return $this->hasMany('App\Models\Visit', 'patient_id'); //a patient has many visits. passing in the patient id as it is a foreign key on the visits table.
     }
 
     public function user()
     {
-      return $this->belongsTo('App\Models\User');
+      return $this->belongsTo('App\Models\User'); //a patient belongs to a user
     }
 
     public function medical_insurance()
     {
-      return $this->belongsTo('App\Models\MedicalInsurance', 'medical_insurance_id');
+      return $this->belongsTo('App\Models\MedicalInsurance', 'medical_insurance_id'); //a patient belongs to a medical insurance company. passing in the medinsurance is as it is a foreign key on the patients table.
     }
 }

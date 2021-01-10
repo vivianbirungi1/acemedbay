@@ -19,7 +19,7 @@
                </ul>
              </div>
          @endif
-        <form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST">
+        <form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST"> 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">

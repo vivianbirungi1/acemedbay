@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Visit;
+use App\Models\Visit; //using visit and patient mdoel
 use App\Models\Patient;
 use Auth;
 
@@ -26,10 +26,10 @@ public function __construct()
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() //index method displays visits on page
     {
       $user = Auth::user(); //checking for the authorised user
-      $visits = $user->patient->visits()->orderBy('date', 'asc')->paginate(8);
+      $visits = $user->patient->visits()->orderBy('date', 'asc')->paginate(8); //displatying only visits relevant to authorised patient viewing the page
 
        //$visits =  Visit::all();
        $patient = Patient::all();
@@ -67,7 +67,7 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) //show method displays the form for the single visit by ID
     {
       $visit = Visit::findOrFail($id);
       $patient = Patient::all();
@@ -107,12 +107,12 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id) //destroy method, deletes single visit by ID
     {
       $visit = Visit::findOrFail($id);
       $visit->delete();
 
-      $request->session()->flash('danger', 'Patient visit cencelled');
+      $request->session()->flash('danger', 'Patient visit cencelled'); //displays flash message to say visit has been cancelled.
 
       return redirect()->route('patient.visits.index', $id);
     }

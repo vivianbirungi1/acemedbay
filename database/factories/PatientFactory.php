@@ -21,12 +21,12 @@ class PatientFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition()//using the faker library to generate values for PATIENT
     {
         return [
           'policy_number' => $this->faker->ean8,
-          'user_id' => User::factory(),
-          'medical_insurance_id' => MedicalInsurance::factory()
+          'user_id' => User::factory(), //passing in the user factory for the user id
+          'medical_insurance_id' => MedicalInsurance::factory() //passing in the MedicalInsurance factory for med id
         ];
     }
 }

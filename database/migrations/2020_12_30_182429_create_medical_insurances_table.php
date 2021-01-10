@@ -11,11 +11,11 @@ class CreateMedicalInsurancesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() //runs everything below
     {
-        Schema::create('medical_insurances', function (Blueprint $table) {
+        Schema::create('medical_insurances', function (Blueprint $table) { //creates tables and columns
             $table->id();
-            $table->string('insurance_company');
+            $table->string('insurance_company'); //assigning the value as a string
             $table->timestamps();
         });
     }
@@ -25,7 +25,7 @@ class CreateMedicalInsurancesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down() //undoes everything in up method
     {
         Schema::dropIfExists('medical_insurances');
     }

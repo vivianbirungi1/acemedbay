@@ -11,7 +11,7 @@ class CreatePasswordResetsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up()//everything in the up method will run to create the table and columns
     {
         Schema::create('password_resets', function (Blueprint $table) {
             $table->string('email')->index();
@@ -25,7 +25,7 @@ class CreatePasswordResetsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down()//down method undoes everything in the up method when droppping tables and columns
     {
         Schema::dropIfExists('password_resets');
     }

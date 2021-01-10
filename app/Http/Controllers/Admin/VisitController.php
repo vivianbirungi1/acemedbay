@@ -26,7 +26,7 @@ public function __construct()
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() //index method displays all visits
     {
       $visits = Visit::all();
 
@@ -40,9 +40,9 @@ public function __construct()
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() //create method, displays form for creating a visit
     {
-        $doctors = Doctor::all();
+        $doctors = Doctor::all(); //displays all doctors, patients and visits on the form
         $patients = Patient::all();
         $visits = Visit::all();
         return view('admin.visits.create', [
@@ -58,7 +58,7 @@ public function __construct()
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //store method validates the create method form and stores and saves teh data in the database
     {
       $request ->validate([
         'date' => 'required|date',
@@ -70,7 +70,7 @@ public function __construct()
         'patient_id' => 'required|exists:patients,id'
       ]);
 
-      $visit = new Visit();
+      $visit = new Visit(); //creating a new visit and expecting these entries in each field
 
       $visit->date = $request->input('date');
       $visit->start_time = $request->input('start_time');
@@ -81,9 +81,9 @@ public function __construct()
       $visit->patient_id = $request->input('patient_id');
       $visit->save();
 
-      $request->session()->flash('success', 'Visit added successfully');
+      $request->session()->flash('success', 'Visit added successfully'); //displays a flash message once visit has been added succesfully
 
-      return redirect()->route('admin.visits.index');
+      return redirect()->route('admin.visits.index'); //redirects amdin to visits index
     }
 
     /**
@@ -92,7 +92,7 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) //show one visit by ID
     {
       $visit = Visit::findOrFail($id);
 
@@ -107,10 +107,10 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) //editing one visit by ID, diaplys edit form for one visit.
     {
       $visit = Visit::findOrFail($id);
-      $doctors = Doctor::all();
+      $doctors = Doctor::all(); ///display all doctors and patients on edit form
       $patients = Patient::all();
 
        return view('admin.visits.edit', [
@@ -127,7 +127,7 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) //update method executes on form edit form is submitted. validates all fields in the form
     {
       $request ->validate([
         'date' => 'required|date',
@@ -150,7 +150,7 @@ public function __construct()
       $visit->patient_id = $request->input('patient_id');
       $visit->save();
 
-      $request->session()->flash('info', 'Visit edited successfully');
+      $request->session()->flash('info', 'Visit edited successfully'); //displays flash message to say visit edited successfully
 
       return redirect()->route('admin.visits.index');
     }
@@ -161,14 +161,14 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id) //delete method, finds one visit by ID and deletes this specific visit
     {
       $visit = Visit::findOrFail($id);
 
       $visit->delete();
 
-      $request->session()->flash('danger', 'Visit deleted');
+      $request->session()->flash('danger', 'Visit deleted'); //displaying flash message when visit is deleted.
 
-      return redirect()->route('admin.visits.index', $id);
+      return redirect()->route('admin.visits.index', $id); ///returing the admin to index
     }
 }

@@ -16,7 +16,7 @@ class VisitSeeder extends Seeder
      */
     public function run()
     {
-
+      //randomly generating visits using the visit factroy. using for loop to generate 10 visits each time. For every visit made it will create a doctor and patient so then we are also randomly generating doctors and patients into the database
       for($i = 1; $i <= 10; $i++) {
         Visit::factory()->hasDoctor(mt_rand(1, 3))->create();
       }

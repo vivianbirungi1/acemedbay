@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Visit;
+use App\Models\Visit; //using visit, patient, doctor models
 use App\Models\Doctor;
 use App\Models\Patient;
 use Auth;
@@ -27,10 +27,10 @@ public function __construct()
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() //index displays visits for doctor
     {
       $user = Auth::user();
-      $visits = $user->doctor->visits()->orderBy('date', 'asc')->paginate(8);
+      $visits = $user->doctor->visits()->orderBy('date', 'asc')->paginate(8); //dislaying only visits specific to doctor viewing the page
 
       return view('doctor.visits.index', [
         'visits' => $visits
@@ -42,9 +42,9 @@ public function __construct()
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() //create method, displays form for creating a visit
     {
-      $doctors = Doctor::all();
+      $doctors = Doctor::all(); //form displays all doctors and patients
       $patients = Patient::all();
       return view('doctor.visits.create', [
         'doctors' => $doctors,
@@ -58,7 +58,7 @@ public function __construct()
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //store method, validates form fields for new visit created
     {
       $request ->validate([
         'date' => 'required|date',
@@ -81,9 +81,9 @@ public function __construct()
       $visit->patient_id = $request->input('patient_id');
       $visit->save();
 
-      $request->session()->flash('success', 'Doctor visit added successfully');
+      $request->session()->flash('success', 'Doctor visit added successfully'); //flash message to let doctor know a visit was added successfully
 
-      return redirect()->route('doctor.visits.index');
+      return redirect()->route('doctor.visits.index'); //redirects doctor to index page
     }
 
     /**
@@ -92,9 +92,9 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) //show method, displays single visit by ID
     {
-      $visit = Visit::findOrFail($id);
+      $visit = Visit::findOrFail($id); //finding visit by ID to display
 
        return view('doctor.visits.show', [
          'visit' => $visit
@@ -107,7 +107,7 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) //edit method, displays form for editing a single visit. finds visit by ID
     {
       $visit = Visit::findOrFail($id);
       $doctors = Doctor::all();
@@ -127,7 +127,7 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) //update method is validating form of single edited visit
     {
       $request ->validate([
         'date' => 'required|date',
@@ -161,12 +161,12 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id) //deleting a single visit by ID from the database.
     {
       $visit = Visit::findOrFail($id);
       $visit->delete();
 
-      $request->session()->flash('danger', 'Doctor visit deleted');
+      $request->session()->flash('danger', 'Doctor visit deleted'); //displaying flash message to say visit has been deleted.
 
       return redirect()->route('doctor.visits.index');
     }

@@ -18,8 +18,8 @@ class AuthRole
     {
 
       if (!$request->user() || !$request->user()->authorizeRoles($roles)){
-        return redirect()->route('home');
+        return redirect()->route('home'); //authorizing the roles of the user and redirecting them to the home route.
       }
-        return $next($request);
+        return $next($request); //returns the auth request
     }
 }

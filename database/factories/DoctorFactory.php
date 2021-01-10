@@ -20,10 +20,10 @@ class DoctorFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition() //using the faker library to generate values for doctors
     {
         return [
-          'start_date' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
+          'start_date' => $this->faker->date($format = 'Y-m-d', $max = 'now'), //faker library formats a date and sets the time for the date. date is set to now
           'user_id' => User::factory()
         ];
     }

@@ -11,9 +11,9 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() //everything in the up method will run to create the table and columns
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) { //creating a new user and passing in the table objects as our blueprint. setting up the user columns
             $table->id();
             $table->string('name');
             $table->string('address');
@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down() //down method undoes everything in the up method when droppping tables and columns
     {
         Schema::dropIfExists('users');
     }

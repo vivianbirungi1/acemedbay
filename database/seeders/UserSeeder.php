@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run() //seeding in different informations for our users and assinging them roles
     {
-      $role_admin = Role::where('name', 'admin')->first();
+      $role_admin = Role::where('name', 'admin')->first(); //declaring the roles of each user at the top first.
       $role_user = Role::where('name', 'user')->first();
       $role_doctor = Role::where('name', 'doctor')->first();
       $role_patient = Role::where('name', 'patient')->first();
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
       $admin->email = 'admin@acemedbay.ie';
       $admin->password = Hash::make('secret');
       $admin->save();
-      $admin->roles()->attach($role_admin);
+      $admin->roles()->attach($role_admin); //creating a new user and attaching the admin role
 
       $user = new User();
       $user->name = 'doctor';
@@ -39,12 +39,12 @@ class UserSeeder extends Seeder
       $user->email = 'doctor@acemedbay.ie';
       $user->password = Hash::make('secret');
       $user->save();
-      $user->roles()->attach($role_doctor);
+      $user->roles()->attach($role_doctor); //creating new doctor and attaching doctor role
 
       $doctor = new Doctor();
       $doctor->start_date = "2020-11-19";
       $doctor->user_id = $user->id;
-      $doctor->save();
+      $doctor->save(); //inputting values needed for a new doctor
 
       $user = new User();
       $user->name = 'patient';
@@ -53,24 +53,24 @@ class UserSeeder extends Seeder
       $user->email = 'patient@acemedbay.ie';
       $user->password = Hash::make('secret');
       $user->save();
-      $user->roles()->attach($role_patient);
+      $user->roles()->attach($role_patient); //creating new patient and assigning pateint role
 
       $patient = new Patient();
       $patient->policy_number = "456987";
       $patient->user_id = $user->id;
       $patient->medical_insurance_id = "1";
-      $patient->save();
+      $patient->save(); //adding information for new patient
 
       //admin
         for($i = 1; $i <= 2; $i++) {
           $user = User::factory()->create();
-          $user->roles()->attach($role_admin);
+          $user->roles()->attach($role_admin); //randomly generating admins using the user factory. using for loop to generate 2 random admins.
         }
 
         //users
         for($i = 1; $i <= 20; $i++) {
           $user = User::factory()->create();
-          $user->roles()->attach($role_user);
+          $user->roles()->attach($role_user);//randomly generating users using the user factory. using for loop to generate 20 random users.
         }
 
       //   doctors
