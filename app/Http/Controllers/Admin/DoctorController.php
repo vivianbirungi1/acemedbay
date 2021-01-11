@@ -54,11 +54,14 @@ public function __construct()
      */
     public function store(Request $request) //store method, validating th form from the create method.
     {
+
+      $doctor = new Doctor();
+
       $request ->validate([ //validation rules for creating a doctor
         'name' => 'required|max:191',
         'address' => 'required|max:191',
         'phone' => 'required|size:10',
-        'email' => 'required|email|min:3|max:191',
+        'email' => 'required|between:3,191|email|unique:users,email' .$doctor->user_id,
         'start_date' => 'required|date',
         'user_id' => 'required|numeric|min:0'
       ]);
@@ -72,9 +75,9 @@ public function __construct()
       $user->password = Hash::make('secret');
       $user->save();
 
-      $doctor = new Doctor();
+
       $doctor->start_date = $request->input('start_date');
-      $doctor->user_id = $request->input('user_id');
+      $doctor->user_id = $user->id;
       $doctor->save(); //save method to save the above information entered in the form
 
       $request->session()->flash('success', 'Doctor added successfully'); //flash message to show a doctor has been added successfully once new user is created and form submitted
@@ -133,8 +136,6 @@ public function __construct()
         'email' => 'required|between:3,191|email|unique:users,email,' . $doctor->user_id, //passing in this specific doctors user ID to show we are not submitting a duplicate entry of the email of the same doctor but rather updating it
         'start_date' => 'required|date'
       ]);
-
-
 
       $user = User::findOrFail($doctor->user_id);
       $user->name = $request->input('name');

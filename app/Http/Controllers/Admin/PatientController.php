@@ -61,11 +61,14 @@ public function __construct()
      */
     public function store(Request $request)  //store method, validating th form from the create method.
     {
+
+      $patient = new Patient();
+
       $request ->validate([
         'name' => 'required|max:191',
         'address' => 'required|max:191',
         'phone' => 'required|size:10',
-        'email' => 'required|email|min:3|max:191',
+        'email' => 'required|between:3,191|email|unique:users,email' . $patient->user_id,
         'medical_insurance_id' => 'required',
         'policy_number' => 'required|integer|min:4',
         'user_id' => 'required|numeric|min:0'
@@ -80,9 +83,9 @@ public function __construct()
       $user->password = Hash::make('secret');
       $user->save();
 
-      $patient = new Patient();
+
       $patient->policy_number = $request->input('policy_number');
-      $patient->user_id = $request->input('user_id');
+      $patient->user_id = $user->id;
       $patient->medical_insurance_id = $request->input('medical_insurance_id');
       $patient->save(); //save method to save the above information entered in the form
 

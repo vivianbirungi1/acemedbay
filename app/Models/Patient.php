@@ -9,6 +9,10 @@ class Patient extends Model
 {
     use HasFactory;
 
+    protected $fillable = [ //for fields in the user table.
+        'user_id',
+    ];
+
     public function visits()
     {
       return $this->hasMany('App\Models\Visit', 'patient_id'); //a patient has many visits. passing in the patient id as it is a foreign key on the visits table.
